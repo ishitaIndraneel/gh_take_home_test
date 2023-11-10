@@ -2,9 +2,10 @@ import Papa from 'papaparse'
 import rawData from './loansize.csv'
 
 const parseData = (result, rawData) => {
-  result.data.splice(0, 2)
+  result.data.splice(0, 1)
+
   const { data } = result
-  for (let i = 0; i < data.length; i += 1) {
+  for (let i = 0; i < data.length-1; i += 1) {
     const year = data[i][0]
     const quarter = data[i][1]
     const grade = data[i][2]
