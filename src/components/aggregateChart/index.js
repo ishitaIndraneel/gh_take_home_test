@@ -1,4 +1,4 @@
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid } from 'recharts';
 import {filteredData, sum} from '../../utils'
 import { useState, useEffect } from 'react';
 import React from 'react';
@@ -21,28 +21,15 @@ const Chart = (props) => {
         
     }))
 
-    return ( 
-        <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-            width={500}
-            height={300}
-            data={barDataArray}
-            margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
+    const data = barDataInfo
+ 
+    return (
+        <BarChart width={600} height={600} data={data}>
+            <Bar dataKey="Sum" fill=" #6699CC" />
+            <CartesianGrid stroke="#ccc" />
             <XAxis dataKey="Grade" />
             <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Sum" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
         </BarChart>
-        </ResponsiveContainer>
     )
-
 }
 export default Chart

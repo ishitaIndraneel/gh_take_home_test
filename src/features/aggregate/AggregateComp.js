@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { changeYear, changeHomeOwnership, changeQuarter, changeTerm, reset, setData} from './reducer'
 import {TableView, DropdownComp, AggregateBarChart} from '../../components/index'
 import { Grid } from '@material-ui/core';
+import { useStyles } from './styles';
 
 
 
@@ -17,6 +18,7 @@ const AggregateComp = (props)=> {
     const resetFlag = useSelector((state) => state.criteria.resetFlag)
     const [resetlocalFlag,setResetlocalFlag] = useState(false)
     const dispatch = useDispatch()
+    const classes = useStyles()
 
     const getAllData = useCallback(async() => {
         const res = await getData()
@@ -51,19 +53,19 @@ const AggregateComp = (props)=> {
             </Grid>
             <Grid item lg={12}>
                 <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item lg={1}><DropdownComp label="Home Ownership"  value={homeOwnership} options={allHomeOwn} uponSelection={changeHomeOwnership}></DropdownComp></Grid>
+                    <Grid item lg={2}><DropdownComp label="Home Ownership"  value={homeOwnership} options={allHomeOwn} uponSelection={changeHomeOwnership}></DropdownComp></Grid>
                     <Grid item lg={1}><DropdownComp label="Quarter"  value={quarter} options={allQuaters} uponSelection={changeQuarter}></DropdownComp></Grid>
                     <Grid item lg={1}><DropdownComp label="Term"  value={term} options={allTerms} uponSelection={changeTerm}></DropdownComp></Grid>
                     <Grid item lg={1}><DropdownComp label="Year"  value={year} options={allYears} uponSelection={changeYear}></DropdownComp></Grid>
                 </Grid>
             </Grid>
-            <Grid container  alignItems="center" justifyContent="center">
+            <Grid container  alignItems="center" justifyContent="center" className={classes.resetContainer}>
                 <Grid item lg={12}>
                  <button onClick={handleReset}>RESET</button>
                 </Grid>
             </Grid>
-            <Grid container  alignItems="center" justifyContent="center">
-                <Grid item lg={12}>
+            <Grid container  alignItems="center" justifyContent="center" >
+                <Grid item lg={12} className={classes.barContainerItem}>
                 <AggregateBarChart year={year} homeOwnership={homeOwnership} term={term} quarter={quarter} bigData={bigData} grades={allGrades}></AggregateBarChart>
                 </Grid>
             
