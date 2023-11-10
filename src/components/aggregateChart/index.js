@@ -3,6 +3,7 @@ import {filteredData, sum} from '../../utils'
 import { useState, useEffect } from 'react';
 import React from 'react';
 
+/** Accepts the aggregates based on grade and displays a bar graph */
 const Chart = (props) => {
 
     const { year, quarter, term, homeOwnership, bigData} = props

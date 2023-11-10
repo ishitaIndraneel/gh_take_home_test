@@ -10,6 +10,7 @@ import { useStyles } from './styles';
 
 const AggregateComp = (props)=> {
 
+    /** Collect redux state */
     const year = useSelector((state) => state.criteria.year)
     const quarter = useSelector((state) => state.criteria.quarter)
     const homeOwnership = useSelector((state) => state.criteria.homeOwnership)
@@ -17,9 +18,11 @@ const AggregateComp = (props)=> {
     const bigData = useSelector((state) => state.criteria.bigData) 
     const resetFlag = useSelector((state) => state.criteria.resetFlag)
     const [resetlocalFlag,setResetlocalFlag] = useState(false)
+    
     const dispatch = useDispatch()
     const classes = useStyles()
 
+    /**Fetch data from api */
     const getAllData = useCallback(async() => {
         const res = await getData()
         dispatch(setData(res))
@@ -31,6 +34,7 @@ const AggregateComp = (props)=> {
         resetFlag && fetchData()
     },[resetlocalFlag])
 
+    /**Creates arrays for each category. Each array is a set of options for the dropdown   */
     const allYears = [...new Set(bigData?.map((elem) => elem.year))].sort()
     const allHomeOwn = [...new Set(bigData?.map((elem) => elem.homeOwnership))].sort()
     const allQuaters = [...new Set(bigData?.map((elem) => elem.quarter))].sort()
@@ -38,6 +42,7 @@ const AggregateComp = (props)=> {
     const allGrades = [...new Set(bigData?.map((elem) => elem.grade))].sort()
  
     const handleReset = () => {
+        /** Sets the local reset flag and a redux flag, so that the data is fetched only on first render and when user clicks reset  */
         setResetlocalFlag(!resetlocalFlag)
         dispatch(reset(true)) // Dispatch the reset action
       }
@@ -66,7 +71,7 @@ const AggregateComp = (props)=> {
             </Grid>
             <Grid container  alignItems="center" justifyContent="center" >
                 <Grid item lg={12} className={classes.barContainerItem}>
-                <AggregateBarChart year={year} homeOwnership={homeOwnership} term={term} quarter={quarter} bigData={bigData} grades={allGrades}></AggregateBarChart>
+                    <AggregateBarChart year={year} homeOwnership={homeOwnership} term={term} quarter={quarter} bigData={bigData} grades={allGrades}></AggregateBarChart>
                 </Grid>
             
             </Grid>
